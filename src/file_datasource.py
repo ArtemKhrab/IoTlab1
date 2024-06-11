@@ -1,10 +1,13 @@
+import logging
 from csv import reader
 from datetime import datetime
 
 from domain.accelerometer import Accelerometer
 from domain.aggregated_data import AggregatedData
-from domain.parking import Parking
 from domain.gps import Gps
+from domain.parking import Parking
+
+logger = logging.getLogger(__name__)
 
 
 class FileDatasource:
@@ -86,7 +89,7 @@ class FileDatasource:
             next(self.accelerometer_reader)
         except StopIteration:
             raise Exception(f"{self.accelerometer_filename} is empty")
-        print("Accelerometer data reading restarted")
+        logger.info("Accelerometer data reading restarted")
 
     def _start_reading_parking_data(self) -> None:
         self.parking_file = open(self.parking_filename, 'r')
@@ -95,7 +98,7 @@ class FileDatasource:
             next(self.parking_reader)
         except StopIteration:
             raise Exception(f"{self.parking_file} is empty")
-        print("Parking data reading restarted")
+        logger.info("Parking data reading restarted")
 
     def _start_reading_gps_data(self) -> None:
         self.gps_file = open(self.gps_filename, 'r')
@@ -104,7 +107,7 @@ class FileDatasource:
             next(self.gps_file)
         except StopIteration:
             raise Exception(f"{self.gps_filename} is empty")
-        print("GPS data reading restarted")
+        logger.info("GPS data reading restarted")
 
     def start_reading(self, *args, **kwargs) -> None:
         self._start_reading_accelerometer_data()
@@ -117,7 +120,7 @@ class FileDatasource:
             self.accelerometer_file = None
 
         self.accelerometer_reader = None
-        print("Accelerometer data reading stopper")
+        logger.info("Accelerometer data reading stopper")
 
     def _stop_reading_gps_data(self):
         if self.gps_file:
@@ -125,7 +128,7 @@ class FileDatasource:
             self.gps_file = None
 
         self.gps_reader = None
-        print("GPS data reading stopped")
+        logger.info("GPS data reading stopped")
 
     def _stop_reading_parking_data(self):
         if self.parking_file:
@@ -133,25 +136,25 @@ class FileDatasource:
             self.parking_file = None
 
         self.parking_reader = None
-        print("Parking data reading stopper")
+        logger.info("Parking data reading stopper")
 
     def stop_reading(self, *args, **kwargs):
         self._stop_reading_accelerometer_data()
         self._stop_reading_gps_data()
         self._stop_reading_parking_data()
-        print("Data reading stopped")
+        logger.info("Data reading stopped")
 
     def restart_accelerometer_reading(self):
         self._stop_reading_accelerometer_data()
         self._start_reading_accelerometer_data()
-        print("Accelerometer data reading restarted")
+        logger.info("Accelerometer data reading restarted")
 
     def restart_gps_reading(self):
         self._stop_reading_gps_data()
         self._start_reading_gps_data()
-        print("GPS data reading restarted")
+        logger.info("GPS data reading restarted")
 
     def restart_parking_reading(self):
         self._stop_reading_parking_data()
         self._start_reading_parking_data()
-        print("Parking data reading restarted")
+        logger.info("Parking data reading restarted")

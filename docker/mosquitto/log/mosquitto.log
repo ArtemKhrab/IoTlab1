@@ -182,3 +182,10 @@
 1717261550: New client connected from 172.18.0.1:55184 as mqtt-explorer-4ebb02e0 (p2, c1, k60).
 1717261550: New connection from 172.18.0.3:45911 on port 1883.
 1717261550: New client connected from 172.18.0.3:45911 as auto-CFC298F4-E9AD-DBF8-78C7-D1C4E345A417 (p2, c1, k60).
+1718127387: mosquitto version 2.0.18 starting
+1718127387: Config loaded from /mosquitto/config/mosquitto.conf.
+1718127387: Opening ipv4 listen socket on port 1883.
+1718127387: Opening ipv6 listen socket on port 1883.
+1718127387: mosquitto version 2.0.18 running
+1718127387: New connection from 172.18.0.3:54463 on port 1883.
+1718127387: New client connected from 172.18.0.3:54463 as auto-2DA932AE-2894-C72A-62F8-B2769941ED53 (p2, c1, k60).

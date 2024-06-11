@@ -1,3 +1,4 @@
+import logging
 import time
 
 from paho.mqtt import client as mqtt_client
@@ -6,16 +7,18 @@ import config
 from file_datasource import FileDatasource
 from schema.aggregated_data_schema import AggregatedDataSchema
 
+logger = logging.getLogger(__name__)
+
 
 def connect_mqtt(broker, port):
     """Create MQTT client"""
-    print(f"CONNECT TO {broker}:{port}")
+    logger.info(f"CONNECT TO {broker}:{port}")
 
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
-            print(f"Connected to MQTT Broker ({broker}:{port})!")
+            logger.info(f"Connected to MQTT Broker ({broker}:{port})!")
         else:
-            print(f"Failed to connect {broker}:{port}, return code %d\n", rc)
+            logger.info(f"Failed to connect {broker}:{port}, return code %d\n", rc)
             exit(rc)  # Stop execution
 
     client = mqtt_client.Client()
@@ -38,9 +41,10 @@ def publish(client, topic, datasource, delay):
         # result: [0, 1]
         status = result[0]
         if status == 0:
-            print(f"Send `{msg}` to topic `{topic}`")
+            # logger.info(f"Send `{msg}` to topic `{topic}`")
+            pass
         else:
-            print(f"Failed to send message to topic {topic}")
+            logger.info(f"Failed to send message to topic {topic}")
 
 
 def run():
