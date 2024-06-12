@@ -10,7 +10,7 @@ from domain.parking import Parking
 logger = logging.getLogger(__name__)
 
 
-class FileDatasource:
+class FileDataSource:
     def __init__(self, accelerometer_filename: str, gps_filename: str, parking_filename: str) -> None:
         self.accelerometer_filename = accelerometer_filename
         self.gps_filename = gps_filename
@@ -78,8 +78,8 @@ class FileDatasource:
         return AggregatedData(
             accelerometer=self._parse_accelerometer_data(accelerometer_data),
             gps=self._parse_gps_data(gps_data),
-            parking=self._parse_parking_data(parking_data),
-            time=datetime.now()
+            # parking=self._parse_parking_data(parking_data),
+            timestamp=datetime.now()
         )
 
     def _start_reading_accelerometer_data(self) -> None:

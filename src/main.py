@@ -4,7 +4,7 @@ import time
 from paho.mqtt import client as mqtt_client
 
 import config
-from file_datasource import FileDatasource
+from file_datasource import FileDataSource
 from schema.aggregated_data_schema import AggregatedDataSchema
 
 logger = logging.getLogger(__name__)
@@ -51,7 +51,7 @@ def run():
     # Prepare mqtt client
     client = connect_mqtt(config.MQTT_BROKER_HOST, config.MQTT_BROKER_PORT)
     # Prepare datasource
-    datasource = FileDatasource("data/accelerometer.csv", "data/gps.csv", "data/parking.csv")
+    datasource = FileDataSource("data/accelerometer.csv", "data/gps.csv", "data/parking.csv")
     # Infinity publish data
     publish(client, config.MQTT_TOPIC, datasource, config.DELAY)
 
